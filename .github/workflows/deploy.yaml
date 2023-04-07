@@ -34,4 +34,4 @@ jobs:
           export_default_credentials: true
 
       - name: Deploy to GCP bucket
-        run: gsutil rsync -R build/ gs://big-data-frontend-bucket
+        run: gsutil rsync -R build/ gs://lister-frontend-bucket

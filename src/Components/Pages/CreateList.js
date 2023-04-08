@@ -1,5 +1,4 @@
-import { Box, Typography } from '@mui/material';
-import { blue } from '@mui/material/colors';
+import { Box } from '@mui/material';
 import ListCreator from '../ListCreator/ListCreator';
 
 const CreateList = () => {

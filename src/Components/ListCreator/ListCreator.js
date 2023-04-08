@@ -12,18 +12,19 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import { BACKEND_URL } from '../../config/urls';
 import { manageList } from './listReducer';
 import {
     courseTypes,
     dietTypes,
-    cousineTypes,
+    cuisineTypes,
     maxReadyTimes,
 } from './listOptions';
 
 const initListState = {
     course: '',
     dietType: '',
-    cousine: '',
+    cuisine: '',
     maxReadyTime: 30,
     description: '',
 };
@@ -35,7 +36,10 @@ const ListCreator = () => {
     );
 
     const handleCourseChange = (event) => {
-        dispatchListState({ type: 'CHANGE_COURSE', value: event.target.value });
+        dispatchListState({
+            type: 'CHANGE_COURSE',
+            value: event.target.value,
+        });
     };
 
     const handleDietChange = (event) => {
@@ -45,9 +49,9 @@ const ListCreator = () => {
         });
     };
 
-    const handleCousineChange = (event) => {
+    const handleCuisineChange = (event) => {
         dispatchListState({
-            type: 'CHANGE_COUSINE',
+            type: 'CHANGE_CUISINE',
             value: event.target.value,
         });
     };
@@ -66,15 +70,43 @@ const ListCreator = () => {
         });
     };
 
+    const mapParams = {
+        course: 'course_type',
+        dietType: 'diet_type',
+        cuisine: 'cuisine',
+        maxReadyTime: 'max_ready_time',
+        description: 'description',
+    };
+
+    const convertParamToUrl = (param, value) => {
+        if (param === 'description' || param === 'maxReadyTime') return value;
+        if (param === 'course') return courseTypes[value];
+        if (param === 'dietType') return dietTypes[value];
+        if (param === 'cuisine') return cuisineTypes[value];
+    };
+
     const handleFindReceip = (event) => {
         event.preventDefault();
-        console.log({
-            course: listState.course,
-            dietType: listState.dietType,
-            cousine: listState.cousine,
-            time: listState.maxReadyTime,
-            description: listState.description,
-        });
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        let url = `${BACKEND_URL}/recipe/option?page=1&page_size=10`;
+        for (let param in listState) {
+            if (listState[param]) {
+                const valueToUrl = convertParamToUrl(param, listState[param]);
+                url += `&${mapParams[param]}=${valueToUrl}`;
+            }
+        }
+        console.log(url);
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+            });
     };
 
     return (
@@ -94,12 +126,7 @@ const ListCreator = () => {
                 <Typography component="h1" variant="h5">
                     Create your list
                 </Typography>
-                <Box
-                    component="form"
-                    onSubmit={handleFindReceip}
-                    noValidate
-                    sx={{ mt: 1 }}
-                >
+                <Box component="form" noValidate sx={{ mt: 1 }}>
                     <FormControl fullWidth margin="normal">
                         <InputLabel id="course-type">Course type</InputLabel>
                         <Select
@@ -109,7 +136,7 @@ const ListCreator = () => {
                             label="Course type"
                             onChange={handleCourseChange}
                         >
-                            {courseTypes.map((type) => (
+                            {Object.keys(courseTypes).map((type) => (
                                 <MenuItem value={type} key={type}>
                                     {type}
                                 </MenuItem>
@@ -125,7 +152,7 @@ const ListCreator = () => {
                             label="Diet type"
                             onChange={handleDietChange}
                         >
-                            {dietTypes.map((type) => (
+                            {Object.keys(dietTypes).map((type) => (
                                 <MenuItem value={type} key={type}>
                                     {type}
                                 </MenuItem>
@@ -133,15 +160,15 @@ const ListCreator = () => {
                         </Select>
                     </FormControl>
                     <FormControl fullWidth margin="normal">
-                        <InputLabel id="cousine">Cousine</InputLabel>
+                        <InputLabel id="cuisine">Cuisine</InputLabel>
                         <Select
-                            labelId="cousine"
-                            id="cousine"
-                            value={listState.cousine}
-                            label="Cousine"
-                            onChange={handleCousineChange}
+                            labelId="cuisine"
+                            id="cuisine"
+                            value={listState.cuisine}
+                            label="Cuisine"
+                            onChange={handleCuisineChange}
                         >
-                            {cousineTypes.map((type) => (
+                            {Object.keys(cuisineTypes).map((type) => (
                                 <MenuItem value={type} key={type}>
                                     {type}
                                 </MenuItem>
@@ -181,6 +208,7 @@ const ListCreator = () => {
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        onClick={handleFindReceip}
                     >
                         Find receip
                     </Button>

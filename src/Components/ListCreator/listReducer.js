@@ -10,10 +10,10 @@ export const manageList = (state, action) => {
                 ...state,
                 dietType: action.value,
             };
-        case 'CHANGE_COUSINE':
+        case 'CHANGE_CUISINE':
             return {
                 ...state,
-                cousine: action.value,
+                cuisine: action.value,
             };
         case 'CHANGE_MAX_READY_TIME':
             return {

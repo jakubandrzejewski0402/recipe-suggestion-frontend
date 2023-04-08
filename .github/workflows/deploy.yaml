@@ -35,4 +35,3 @@ jobs:
 
       - name: Deploy to GCP bucket
         run: gsutil rsync -R build/ gs://lister-frontend-bucket-dev-b9237844f38e6360
-

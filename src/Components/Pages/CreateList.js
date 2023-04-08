@@ -1,12 +1,13 @@
 import { Box, Typography } from '@mui/material';
 import { blue } from '@mui/material/colors';
+import ListCreator from '../ListCreator/ListCreator';
 
 const CreateList = () => {
     return (
         <Box
             style={{
                 position: 'absolute',
-                top: 0,
+                top: -40,
                 left: 0,
                 width: '100%',
                 height: '100%',
@@ -15,9 +16,7 @@ const CreateList = () => {
                 alignItems: 'center',
             }}
         >
-            <Typography style={{ color: blue[600] }} variant="h4">
-                Here you will be able to create your list!
-            </Typography>
+            <ListCreator />
         </Box>
     );
 };

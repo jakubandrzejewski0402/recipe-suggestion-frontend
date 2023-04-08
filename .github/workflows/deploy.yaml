@@ -24,8 +24,8 @@ jobs:
           npm run build
       
       - name: Deploy to Google Cloud Storage
+        env:
+          GCP_SA_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         run: |
           echo "$GCP_SA_KEY" | base64 --decode > key.json
           gsutil -m cp -r build/* gs://lister-frontend-bucket-dev-b9237844f38e6360
-        env:
-          GCP_SA_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}

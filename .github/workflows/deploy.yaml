@@ -1,4 +1,4 @@
-name: Deploy to Google Cloud Storage
+name: Deploy to GCP
 
 on:
   push:
@@ -8,24 +8,30 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: big-data-app-382307
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
-      - name: Setup Node.js
+
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      
-      - name: Install dependencies and build
-        run: |
-          npm ci
-          npm run build
-      
-      - name: Deploy to Google Cloud Storage
-        env:
-          GCP_SA_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-        run: |
-          echo "$GCP_SA_KEY" | base64 --decode > key.json
-          gsutil -m cp -r build/* gs://lister-frontend-bucket-dev-b9237844f38e6360
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend project
+        run: npm run build
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          export_default_credentials: true
+
+      - name: Deploy to GCP bucket
+        run: gsutil rsync -R build/ gs://lister-frontend-bucket-dev-b9237844f38e6360

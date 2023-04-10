@@ -10,7 +10,7 @@ import { Grid, Box } from '@mui/material';
 const RecipesChoose = ({ recipes }) => {
     const Receip = ({ title, image, id }) => {
         return (
-            <Card sx={{ maxWidth: 345, height: 330 }}>
+            <Card sx={{ width: 345, height: 330 }}>
                 <CardMedia
                     sx={{ height: 180 }}
                     image={image}

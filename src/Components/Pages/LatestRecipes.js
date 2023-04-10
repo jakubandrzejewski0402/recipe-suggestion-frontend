@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { blue } from '@mui/material/colors';
 
-const LatestLists = () => {
+const LatestRecipes = () => {
     return (
         <Box
             style={{
@@ -22,4 +22,4 @@ const LatestLists = () => {
     );
 };
 
-export default LatestLists;
+export default LatestRecipes;

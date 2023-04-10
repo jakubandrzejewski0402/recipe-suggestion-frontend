@@ -8,8 +8,8 @@ import Button from '@mui/material/Button';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 
 const pages = [
-    { title: 'Get your list', url: '/createList' },
-    { title: 'Latest recipes', url: '/lists' },
+    { title: 'Get your list', url: '/createReceip' },
+    { title: 'Latest recipes', url: '/recipes' },
 ];
 
 const NavBar = () => {
@@ -66,7 +66,6 @@ const NavBar = () => {
                                 key={pages[1].title}
                                 href={pages[1].url}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
-                                // style={{ padding: '6px 20px' }}
                             >
                                 {pages[1].title}
                             </Button>

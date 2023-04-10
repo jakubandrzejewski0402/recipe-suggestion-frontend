@@ -15,13 +15,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import MenuItem from '@mui/material/MenuItem';
 import { BACKEND_URL } from '../../config/urls';
-import { manageList } from './listReducer';
+import { manageList } from './recipeReducer';
 import {
     courseTypes,
     dietTypes,
     cuisineTypes,
     maxReadyTimes,
-} from './listOptions';
+} from './recipeOptions';
 
 const initListState = {
     course: '',
@@ -31,7 +31,7 @@ const initListState = {
     description: '',
 };
 
-const ListCreator = ({ setOpenForm, setRecipes }) => {
+const RecipeCreator = ({ setOpenForm, setRecipes }) => {
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [listState, dispatchListState] = useReducer(
@@ -280,4 +280,4 @@ const ListCreator = ({ setOpenForm, setRecipes }) => {
     );
 };
 
-export default ListCreator;
+export default RecipeCreator;

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Welcome from './Components/Pages/Welcome';
 import NavBar from './Components/NavBar/NavBar';
-import CreateList from './Components/Pages/CreateList';
-import LatestLists from './Components/Pages/LatestLists';
+import CreateRecipes from './Components/Pages/CreateRecipes';
+import LatestRecipes from './Components/Pages/LatestRecipes';
 
 const App = () => {
     return (
@@ -10,8 +10,9 @@ const App = () => {
             <NavBar />
             <Routes>
                 <Route exact path="/" element={<Welcome />} />
-                <Route exact path="/createList" element={<CreateList />} />
-                <Route exact path="/lists" element={<LatestLists />} />
+                <Route exact path="/createReceip" element={<CreateRecipes />} />
+                <Route exact path="/recipes" element={<LatestRecipes />} />
+                <Route exact path="/recipe/:id" element={<LatestRecipes />} />
             </Routes>
         </Router>
     );

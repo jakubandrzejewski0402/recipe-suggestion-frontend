@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
-import ListCreator from '../ListCreator/ListCreator';
+import RecipeCreator from '../ListCreator/RecipeCreator';
 import { useState } from 'react';
 import RecipesChoose from '../ListCreator/RecipesChoose';
 
-const CreateList = () => {
+const CreateRecipes = () => {
     const [openForm, setOpenForm] = useState(true);
     const [recipes, setRecipes] = useState(null);
     return (
@@ -20,7 +20,7 @@ const CreateList = () => {
             }}
         >
             {openForm ? (
-                <ListCreator
+                <RecipeCreator
                     setOpenForm={setOpenForm}
                     setRecipes={setRecipes}
                 />
@@ -31,4 +31,4 @@ const CreateList = () => {
     );
 };
 
-export default CreateList;
+export default CreateRecipes;

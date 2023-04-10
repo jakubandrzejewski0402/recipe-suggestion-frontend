@@ -22,9 +22,8 @@ const RecipeDetails = ({ recipeId }) => {
                 setDetails(res);
                 setLoading(false);
             });
-    }, []);
+    }, [recipeId]);
 
-    console.log(loading);
     return loading ? (
         <CircularProgress />
     ) : (

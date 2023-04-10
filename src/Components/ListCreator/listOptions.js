@@ -13,7 +13,6 @@ export const courseTypes = {
     Fingerfood: 'fingerfood',
     Snack: 'snack',
     Drink: 'drink',
-    All: 'all',
 };
 
 export const dietTypes = {
@@ -27,7 +26,6 @@ export const dietTypes = {
     Primal: 'primal',
     'Low fodmap': 'lowfodmap',
     Whole30: 'whole30',
-    All: 'all',
 };
 
 export const cuisineTypes = {
@@ -57,7 +55,6 @@ export const cuisineTypes = {
     Spanish: 'Spanish',
     Thai: 'Thai',
     Vietnamese: 'Vietnamese',
-    All: 'all',
 };
 
 export const maxReadyTimes = [15, 30, 45, 60, 90, 120, 180];

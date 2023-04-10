@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
@@ -11,6 +11,8 @@ import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 import MenuItem from '@mui/material/MenuItem';
 import { BACKEND_URL } from '../../config/urls';
 import { manageList } from './listReducer';
@@ -29,7 +31,9 @@ const initListState = {
     description: '',
 };
 
-const ListCreator = () => {
+const ListCreator = ({ setOpenForm, setRecipes }) => {
+    const [isError, setIsError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [listState, dispatchListState] = useReducer(
         manageList,
         initListState
@@ -87,6 +91,7 @@ const ListCreator = () => {
 
     const handleFindReceip = (event) => {
         event.preventDefault();
+        setLoading(true);
         const options = {
             method: 'GET',
             headers: {
@@ -94,18 +99,49 @@ const ListCreator = () => {
             },
         };
 
-        let url = `${BACKEND_URL}/recipe/option?page=1&page_size=10`;
+        let url = `${BACKEND_URL}/recipe/option?page=1&page_size=6`;
         for (let param in listState) {
             if (listState[param]) {
                 const valueToUrl = convertParamToUrl(param, listState[param]);
                 url += `&${mapParams[param]}=${valueToUrl}`;
             }
         }
-        console.log(url);
+        fetch(url, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setRecipes(res);
+                setOpenForm(false);
+                setLoading(false);
+            })
+            .catch(() => {
+                setIsError(true);
+                setLoading(false);
+            });
+    };
+
+    const handleLuckyShot = (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        let url = `${BACKEND_URL}/recipe/option/random`;
         fetch(url, options)
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
+                setRecipes(res);
+                setOpenForm(false);
+                setLoading(false);
+            })
+            .catch(() => {
+                setIsError(true);
+                setLoading(false);
             });
     };
 
@@ -120,9 +156,15 @@ const ListCreator = () => {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: blue[600] }}>
-                    <FoodBankIcon />
-                </Avatar>
+                {loading ? (
+                    <Box sx={{ display: 'flex' }}>
+                        <CircularProgress />
+                    </Box>
+                ) : (
+                    <Avatar sx={{ m: 1, bgcolor: blue[600] }}>
+                        <FoodBankIcon />
+                    </Avatar>
+                )}
                 <Typography component="h1" variant="h5">
                     Create your list
                 </Typography>
@@ -216,11 +258,23 @@ const ListCreator = () => {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        disabled
+                        onClick={handleLuckyShot}
                     >
                         Lucky shot
                     </Button>
                 </Box>
+                {isError && (
+                    <Box position="absolute">
+                        <Alert
+                            severity="error"
+                            onClose={() => {
+                                setIsError(false);
+                            }}
+                        >
+                            Something went wrond - <strong>try again</strong>
+                        </Alert>
+                    </Box>
+                )}
             </Box>
         </Container>
     );

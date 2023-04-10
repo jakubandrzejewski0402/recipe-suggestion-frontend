@@ -1,7 +1,11 @@
 import { Box } from '@mui/material';
 import ListCreator from '../ListCreator/ListCreator';
+import { useState } from 'react';
+import RecipesChoose from '../ListCreator/RecipesChoose';
 
 const CreateList = () => {
+    const [openForm, setOpenForm] = useState(true);
+    const [recipes, setRecipes] = useState(null);
     return (
         <Box
             style={{
@@ -15,7 +19,14 @@ const CreateList = () => {
                 alignItems: 'center',
             }}
         >
-            <ListCreator />
+            {openForm ? (
+                <ListCreator
+                    setOpenForm={setOpenForm}
+                    setRecipes={setRecipes}
+                />
+            ) : (
+                <RecipesChoose recipes={recipes} />
+            )}
         </Box>
     );
 };

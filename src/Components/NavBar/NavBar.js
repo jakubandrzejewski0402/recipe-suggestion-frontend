@@ -9,21 +9,20 @@ import FoodBankIcon from '@mui/icons-material/FoodBank';
 
 const pages = [
     { title: 'Get your list', url: '/createList' },
-    { title: 'Latest lists', url: '/lists' },
+    { title: 'Latest recipes', url: '/lists' },
 ];
 
 const NavBar = () => {
     return (
         <AppBar position="absolute">
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
+                <Toolbar disableGutters style={{ padding: '0 3% 0 0' }}>
                     <Box
                         sx={{
                             flexGrow: 1,
                             display: { xs: 'none', md: 'flex' },
                             justifyContent: 'flex-end',
                         }}
-                        // style={{ padding: '0px 18px' }}
                     >
                         {
                             <Button

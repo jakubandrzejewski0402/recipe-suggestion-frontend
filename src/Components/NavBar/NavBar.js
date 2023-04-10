@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 
 const pages = [
-    { title: 'Get your list', url: '/createReceip' },
+    { title: 'Get your list', url: '/createRecipe' },
     { title: 'Latest recipes', url: '/recipes' },
 ];
 

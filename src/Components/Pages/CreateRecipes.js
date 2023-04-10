@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import RecipeCreator from '../ListCreator/RecipeCreator';
+import RecipeCreator from '../RecipeCreator/RecipeCreator';
 import { useState } from 'react';
-import RecipesChoose from '../ListCreator/RecipesChoose';
+import RecipesChoose from '../RecipeCreator/RecipesChoose';
 
 const CreateRecipes = () => {
     const [openForm, setOpenForm] = useState(true);

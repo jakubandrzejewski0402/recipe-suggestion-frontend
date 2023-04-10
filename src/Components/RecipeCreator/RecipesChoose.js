@@ -6,9 +6,17 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { blue } from '@mui/material/colors';
 
 const RecipesChoose = ({ recipes }) => {
     const Receip = ({ title, image, id }) => {
+        const navigate = useNavigate();
+
+        const handleClick = () => {
+            navigate(`/recipe/${id}`);
+        };
+
         return (
             <Card sx={{ width: 345, height: 330 }}>
                 <CardMedia
@@ -22,13 +30,15 @@ const RecipesChoose = ({ recipes }) => {
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'center' }}>
-                    <Button size="small">Details</Button>
+                    <Button onClick={handleClick} size="small">
+                        Details
+                    </Button>
                 </CardActions>
             </Card>
         );
     };
 
-    return (
+    return recipes.length > 0 ? (
         <Box padding="5% 20% 0">
             <Grid container spacing={{ xs: 2, md: 3 }}>
                 {recipes.map(({ title, image, id }) => {
@@ -40,6 +50,10 @@ const RecipesChoose = ({ recipes }) => {
                 })}
             </Grid>
         </Box>
+    ) : (
+        <Typography style={{ color: blue[600] }} variant="h4">
+            You're out of luck today, nothing found...
+        </Typography>
     );
 };
 

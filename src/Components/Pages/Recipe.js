@@ -1,11 +1,9 @@
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
 
 const Recipe = () => {
-    const location = useLocation();
-    const { pathname } = location;
-    const recipeId = pathname.split('/').pop();
+    const { id } = useParams();
 
     return (
         <Box
@@ -20,7 +18,7 @@ const Recipe = () => {
                 alignItems: 'center',
             }}
         >
-            <RecipeDetails recipeId={recipeId} />
+            <RecipeDetails recipeId={id} />
         </Box>
     );
 };

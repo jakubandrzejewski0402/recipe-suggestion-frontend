@@ -16,6 +16,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import { saveAs } from 'file-saver';
 
 const RecipeDetails = ({ recipeId }) => {
     const [details, setDetails] = useState(null);
@@ -59,16 +60,18 @@ const RecipeDetails = ({ recipeId }) => {
     };
 
     const handleDownloadButton = () => {
-        // const options = {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        // };
-        // const url = `${appConfig.BACKEND_URL}/recipe/${recipeId}/pdf`;
-        // fetch(url, options).then((res) => {
-        //     console.log(res);
-        // });
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        const url = `${appConfig.BACKEND_URL}/recipe/${recipeId}/pdf`;
+        fetch(url, options)
+            .then((res) => res.blob())
+            .then((blob) => {
+                saveAs(blob, `Receip-${details.title}.pdf`);
+            });
     };
 
     return (
@@ -129,7 +132,6 @@ const RecipeDetails = ({ recipeId }) => {
                             color="primary"
                             style={{ width: 200 }}
                             onClick={handleDownloadButton}
-                            disabled
                         >
                             DOWNLOAD PDF
                         </Button>

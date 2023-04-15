@@ -30,7 +30,7 @@ const NavBar = () => {
                     href={'/createRecipe'}
                     sx={{ color: 'white' }}
                 >
-                    Get your list
+                    Get your recipe
                 </Button>
             </Toolbar>
         </AppBar>

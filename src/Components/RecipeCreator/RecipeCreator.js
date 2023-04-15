@@ -2,7 +2,6 @@ import React, { useReducer, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { blue } from '@mui/material/colors';
@@ -99,7 +98,7 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
             },
         };
 
-        let url = `${appConfig.BACKEND_URL}/recipe/option?page=1&page_size=6`;
+        let url = `${appConfig.BACKEND_URL}/recipe/option?page=1&page_size=12`;
         for (let param in listState) {
             if (listState[param]) {
                 const valueToUrl = convertParamToUrl(param, listState[param]);
@@ -146,20 +145,17 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
+        <Container maxWidth="xs">
             <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: 10,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}
             >
                 {loading ? (
-                    <Box sx={{ display: 'flex' }}>
-                        <CircularProgress />
-                    </Box>
+                    <CircularProgress />
                 ) : (
                     <Avatar sx={{ m: 1, bgcolor: blue[600] }}>
                         <FoodBankIcon />
@@ -271,7 +267,7 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
                                 setIsError(false);
                             }}
                         >
-                            Something went wrond - <strong>try again</strong>
+                            Something went wrong - <strong>try again</strong>
                         </Alert>
                     </Box>
                 )}

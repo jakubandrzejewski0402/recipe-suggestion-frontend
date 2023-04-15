@@ -22,6 +22,7 @@ const RecipeDetails = ({ recipeId }) => {
     const [loading, setLoading] = useState(false);
     const [saveDialogOpen, setSaveDialogOpen] = useState(false);
     const [username, setUsername] = useState('');
+    const [recipeName, setRecipeName] = useState('');
 
     useEffect(() => {
         const options = {
@@ -49,14 +50,12 @@ const RecipeDetails = ({ recipeId }) => {
             },
             body: JSON.stringify({
                 id: recipeId,
-                name: details?.title,
+                name: recipeName,
                 creator_username: username,
             }),
         };
         const url = `${appConfig.BACKEND_URL}/recipe`;
-        fetch(url, options)
-            .then((res) => res.json())
-            .then((res) => {});
+        fetch(url, options).then((res) => res.json());
     };
 
     const handleDownloadButton = () => {
@@ -72,68 +71,71 @@ const RecipeDetails = ({ recipeId }) => {
         // });
     };
 
-    return loading ? (
-        <CircularProgress />
-    ) : (
-        <Box>
-            <Card style={{ width: 600, height: 650 }}>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        image={details?.image}
-                        title={details?.title}
-                    />
-                    <CardContent>
-                        <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="h2"
-                            textAlign="center"
-                        >
-                            {details?.title}
-                        </Typography>
-                        <Typography
-                            variant="h6"
-                            color="textSecondary"
-                            textAlign="center"
-                        >
-                            Servings: {details?.servings}
-                        </Typography>
-                        <Typography
-                            variant="h6"
-                            color="textSecondary"
-                            textAlign="center"
-                        >
-                            Preparation time: {details?.preparation_time} min
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    flexDirection="column"
-                    alignItems="center"
-                >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        style={{ width: 200 }}
-                        onClick={() => setSaveDialogOpen(true)}
+    return (
+        <Box sx={{ marginTop: 8, display: 'flex' }}>
+            {loading ? (
+                <CircularProgress />
+            ) : (
+                <Card style={{ width: 600, height: 650 }}>
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            image={details?.image}
+                            title={details?.title}
+                        />
+                        <CardContent>
+                            <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="h2"
+                                textAlign="center"
+                            >
+                                {details?.title}
+                            </Typography>
+                            <Typography
+                                variant="h6"
+                                color="textSecondary"
+                                textAlign="center"
+                            >
+                                Servings: {details?.servings}
+                            </Typography>
+                            <Typography
+                                variant="h6"
+                                color="textSecondary"
+                                textAlign="center"
+                            >
+                                Preparation time: {details?.preparation_time}{' '}
+                                min
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        flexDirection="column"
+                        alignItems="center"
                     >
-                        SAVE
-                    </Button>
-                    <Box m={1} />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        style={{ width: 200 }}
-                        onClick={handleDownloadButton}
-                        disabled
-                    >
-                        DOWNLOAD PDF
-                    </Button>
-                </Box>
-            </Card>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            style={{ width: 200 }}
+                            onClick={() => setSaveDialogOpen(true)}
+                        >
+                            SAVE
+                        </Button>
+                        <Box m={1} />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            style={{ width: 200 }}
+                            onClick={handleDownloadButton}
+                            disabled
+                        >
+                            DOWNLOAD PDF
+                        </Button>
+                    </Box>
+                </Card>
+            )}
             <Dialog
                 open={saveDialogOpen}
                 onClose={() => setSaveDialogOpen(false)}
@@ -141,12 +143,24 @@ const RecipeDetails = ({ recipeId }) => {
                 <DialogTitle>Save recipe</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To save this recipe, please enter your username here.
+                        To save this recipe, please enter recipe name and
+                        username.
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="recipe-name"
+                        label="Recipe name"
+                        type="Recipe name"
+                        fullWidth
+                        variant="standard"
+                        value={recipeName}
+                        onChange={(e) => setRecipeName(e.target.value)}
+                    />
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="username"
                         label="Username"
                         type="username"
                         fullWidth

@@ -25,7 +25,7 @@ const RecipesChoose = ({ recipes }) => {
                     title="green iguana"
                 />
                 <CardContent style={{ height: 60 }}>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5">
                         {title}
                     </Typography>
                 </CardContent>
@@ -39,8 +39,20 @@ const RecipesChoose = ({ recipes }) => {
     };
 
     return recipes.length > 0 ? (
-        <Box padding="5% 20% 0">
-            <Grid container spacing={{ xs: 2, md: 3 }}>
+        <Box
+            sx={{
+                marginTop: 8,
+            }}
+        >
+            <Grid
+                container
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                spacing={{ xs: 2, md: 8 }}
+            >
                 {recipes.map(({ title, image, id }) => {
                     return (
                         <Grid item key={id}>

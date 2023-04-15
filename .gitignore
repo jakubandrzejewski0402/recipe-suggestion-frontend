@@ -2,4 +2,3 @@ node_modules
 /mocks
 test.js
 .env
-package-lock.json

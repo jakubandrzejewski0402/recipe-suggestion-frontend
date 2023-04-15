@@ -79,7 +79,7 @@ const RecipeDetails = ({ recipeId }) => {
             {loading ? (
                 <CircularProgress />
             ) : (
-                <Card style={{ width: 600, height: 650 }}>
+                <Card style={{ width: 600, height: 700 }}>
                     <CardActionArea>
                         <CardMedia
                             component="img"
@@ -113,10 +113,13 @@ const RecipeDetails = ({ recipeId }) => {
                         </CardContent>
                     </CardActionArea>
                     <Box
-                        display="flex"
-                        justifyContent="center"
-                        flexDirection="column"
-                        alignItems="center"
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            height: '13vh',
+                        }}
                     >
                         <Button
                             variant="contained"

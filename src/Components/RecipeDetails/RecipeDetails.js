@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BACKEND_URL } from '../../config/urls';
+import appConfig from '../../config';
 import {
     CircularProgress,
     Card,
@@ -30,7 +30,7 @@ const RecipeDetails = ({ recipeId }) => {
                 'Content-Type': 'application/json',
             },
         };
-        const url = `${BACKEND_URL}/recipe/option/${recipeId}`;
+        const url = `${appConfig.BACKEND_URL}/recipe/option/${recipeId}`;
 
         setLoading(true);
         fetch(url, options)
@@ -53,7 +53,7 @@ const RecipeDetails = ({ recipeId }) => {
                 creator_username: username,
             }),
         };
-        const url = `${BACKEND_URL}/recipe`;
+        const url = `${appConfig.BACKEND_URL}/recipe`;
         fetch(url, options)
             .then((res) => res.json())
             .then((res) => {});
@@ -66,7 +66,7 @@ const RecipeDetails = ({ recipeId }) => {
         //         'Content-Type': 'application/json',
         //     },
         // };
-        // const url = `${BACKEND_URL}/recipe/${recipeId}/pdf`;
+        // const url = `${appConfig.BACKEND_URL}/recipe/${recipeId}/pdf`;
         // fetch(url, options).then((res) => {
         //     console.log(res);
         // });

@@ -14,7 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import MenuItem from '@mui/material/MenuItem';
-import { BACKEND_URL } from '../../config/urls';
+import appConfig from '../../config.js';
 import { manageList } from './recipeReducer';
 import {
     courseTypes,
@@ -99,7 +99,7 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
             },
         };
 
-        let url = `${BACKEND_URL}/recipe/option?page=1&page_size=6`;
+        let url = `${appConfig.BACKEND_URL}/recipe/option?page=1&page_size=6`;
         for (let param in listState) {
             if (listState[param]) {
                 const valueToUrl = convertParamToUrl(param, listState[param]);
@@ -130,7 +130,7 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
             },
         };
 
-        let url = `${BACKEND_URL}/recipe/option/random`;
+        let url = `${appConfig.BACKEND_URL}/recipe/option/random`;
         fetch(url, options)
             .then((res) => res.json())
             .then((res) => {

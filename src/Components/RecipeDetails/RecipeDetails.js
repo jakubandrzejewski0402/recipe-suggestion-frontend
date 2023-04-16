@@ -53,6 +53,7 @@ const RecipeDetails = ({ recipeId }) => {
                 id: recipeId,
                 name: recipeName,
                 creator_username: username,
+                image: details?.image,
             }),
         };
         const url = `${appConfig.BACKEND_URL}/recipe`;

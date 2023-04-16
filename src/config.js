@@ -6,11 +6,9 @@ const required = (key, variable) => {
     return variable;
 };
 
-const appConfig = {
+export const appConfig = {
     BACKEND_URL: required(
         'REACT_APP_BACKEND_URL',
         process.env.REACT_APP_BACKEND_URL
     ),
 };
-
-export default appConfig;

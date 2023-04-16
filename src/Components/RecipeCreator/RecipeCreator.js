@@ -13,7 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import MenuItem from '@mui/material/MenuItem';
-import appConfig from '../../config.js';
+import { appConfig } from '../../config.js';
 import { manageList } from './recipeReducer';
 import {
     courseTypes,

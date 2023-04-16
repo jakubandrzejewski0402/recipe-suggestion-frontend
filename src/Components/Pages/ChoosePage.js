@@ -6,6 +6,7 @@ const ChoosePage = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const type = searchParams.get('type');
+    const page = parseInt(searchParams.get('page'));
 
     return (
         <Box
@@ -13,7 +14,7 @@ const ChoosePage = () => {
                 margin: '0 auto',
             }}
         >
-            <RecipeChoose type={type} />
+            <RecipeChoose type={type} page={page} />
         </Box>
     );
 };

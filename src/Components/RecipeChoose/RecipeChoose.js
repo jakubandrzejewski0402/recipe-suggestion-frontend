@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Grid, Box, Alert, CircularProgress } from '@mui/material';
+import {
+    Grid,
+    Box,
+    Alert,
+    CircularProgress,
+    Typography,
+    Pagination,
+    Button,
+    CardMedia,
+    CardContent,
+    CardActions,
+    Card,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { blue } from '@mui/material/colors';
 import { courseTypes, dietTypes, cuisineTypes } from './recipeOptions';
 import { appConfig } from '../../config';
 import { UseRecipeState } from '../../context/recipeContext';
 
-const RecipeChoose = ({ type }) => {
+const RecipeChoose = ({ type, page }) => {
     const recipeOptions = UseRecipeState();
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -45,8 +51,8 @@ const RecipeChoose = ({ type }) => {
 
         let url =
             type === 'normal'
-                ? `${appConfig.BACKEND_URL}/recipe/option?page=1&page_size=12`
-                : `${appConfig.BACKEND_URL}/recipe/option/random`;
+                ? `${appConfig.BACKEND_URL}/recipe/option?page=${page}&page_size=8`
+                : `${appConfig.BACKEND_URL}/recipe/option/random?page=${page}&page_size=8`;
         if (type === 'normal') {
             for (let param in recipeOptions) {
                 if (recipeOptions[param]) {
@@ -70,7 +76,7 @@ const RecipeChoose = ({ type }) => {
                 setIsError(true);
                 setLoading(false);
             });
-    }, [recipeOptions]);
+    }, [type, page, recipeOptions]);
 
     const Receip = ({ title, image, id }) => {
         const handleDetailsClick = () => {
@@ -132,6 +138,20 @@ const RecipeChoose = ({ type }) => {
                     );
                 })}
             </Grid>
+            <Pagination
+                sx={{
+                    marginTop: 4,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                count={10}
+                page={page}
+                color="primary"
+                onChange={(_, page) => {
+                    navigate(`/choose-recipe?page=${page}&type=${type}`);
+                }}
+            />
         </Box>
     ) : isError ? (
         <Box

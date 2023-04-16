@@ -75,12 +75,12 @@ const RecipeCreator = () => {
     const handleFindReceip = (event) => {
         event.preventDefault();
         setRecipeState(listState);
-        navigate(`/choose-recipe?type=normal`);
+        navigate(`/choose-recipe?page=1&type=normal`);
     };
 
     const handleLuckyShot = (event) => {
         event.preventDefault();
-        navigate(`/choose-recipe?type=lucky`);
+        navigate(`/choose-recipe?page=1&type=lucky`);
     };
 
     return (

@@ -49,7 +49,16 @@ const RecipeList = () => {
             }}
         >
             {loading ? (
-                <CircularProgress />
+                <Box
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}
+                >
+                    <CircularProgress />
+                </Box>
             ) : (
                 recipes?.map((recipe) => {
                     return (

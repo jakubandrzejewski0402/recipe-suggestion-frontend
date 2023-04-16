@@ -1,14 +1,19 @@
 import { Box } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import RecipeChoose from '../RecipeChoose/RecipeChoose';
 
 const ChoosePage = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const type = searchParams.get('type');
+
     return (
         <Box
             style={{
                 margin: '0 auto',
             }}
         >
-            <RecipeChoose />
+            <RecipeChoose type={type} />
         </Box>
     );
 };

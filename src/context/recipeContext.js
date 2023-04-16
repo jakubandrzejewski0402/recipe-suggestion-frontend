@@ -4,19 +4,11 @@ const recipeContext = createContext();
 const setRecipeContext = createContext();
 
 export const UseRecipeState = () => {
-    const context = useContext(recipeContext);
-    if (!context) {
-        throw new Error('you have to use context inside provider');
-    }
-    return context;
+    return useContext(recipeContext);
 };
 
 export const SetRecipeState = () => {
-    const context = useContext(setRecipeContext);
-    if (!context) {
-        throw new Error('you have to use context inside provider');
-    }
-    return context;
+    return useContext(setRecipeContext);
 };
 
 const RecipeProvider = ({ children }) => {

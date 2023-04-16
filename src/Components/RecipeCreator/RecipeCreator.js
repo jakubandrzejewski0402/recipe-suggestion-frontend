@@ -75,12 +75,12 @@ const RecipeCreator = () => {
     const handleFindReceip = (event) => {
         event.preventDefault();
         setRecipeState(listState);
-        navigate(`/choose-recipe`);
+        navigate(`/choose-recipe?type=normal`);
     };
 
     const handleLuckyShot = (event) => {
         event.preventDefault();
-        navigate(`/choose-recipe`);
+        navigate(`/choose-recipe?type=lucky`);
     };
 
     return (
@@ -190,7 +190,6 @@ const RecipeCreator = () => {
                         fullWidth
                         variant="contained"
                         onClick={handleLuckyShot}
-                        disabled
                     >
                         Lucky shot
                     </Button>

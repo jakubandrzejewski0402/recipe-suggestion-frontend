@@ -12,7 +12,7 @@ import { courseTypes, dietTypes, cuisineTypes } from './recipeOptions';
 import { appConfig } from '../../config';
 import { UseRecipeState } from '../../context/recipeContext';
 
-const RecipeChoose = () => {
+const RecipeChoose = ({ type }) => {
     const recipeOptions = UseRecipeState();
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -43,14 +43,19 @@ const RecipeChoose = () => {
             },
         };
 
-        let url = `${appConfig.BACKEND_URL}/recipe/option?page=1&page_size=12`;
-        for (let param in recipeOptions) {
-            if (recipeOptions[param]) {
-                const valueToUrl = convertParamToUrl(
-                    param,
-                    recipeOptions[param]
-                );
-                url += `&${mapParams[param]}=${valueToUrl}`;
+        let url =
+            type === 'normal'
+                ? `${appConfig.BACKEND_URL}/recipe/option?page=1&page_size=12`
+                : `${appConfig.BACKEND_URL}/recipe/option/random`;
+        if (type === 'normal') {
+            for (let param in recipeOptions) {
+                if (recipeOptions[param]) {
+                    const valueToUrl = convertParamToUrl(
+                        param,
+                        recipeOptions[param]
+                    );
+                    url += `&${mapParams[param]}=${valueToUrl}`;
+                }
             }
         }
 

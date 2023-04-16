@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
 import Avatar from '@mui/material/Avatar';
 import FoodBankIcon from '@mui/icons-material/FoodBank';
 import Button from '@mui/material/Button';
@@ -10,17 +10,16 @@ import Container from '@mui/material/Container';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-import CircularProgress from '@mui/material/CircularProgress';
-import Alert from '@mui/material/Alert';
 import MenuItem from '@mui/material/MenuItem';
-import { appConfig } from '../../config.js';
+import { useNavigate } from 'react-router-dom';
 import { manageList } from './recipeReducer';
 import {
     courseTypes,
     dietTypes,
     cuisineTypes,
     maxReadyTimes,
-} from './recipeOptions';
+} from '../RecipeChoose/recipeOptions.js';
+import { SetRecipeState } from '../../context/recipeContext';
 
 const initListState = {
     course: '',
@@ -30,13 +29,13 @@ const initListState = {
     description: '',
 };
 
-const RecipeCreator = ({ setOpenForm, setRecipes }) => {
-    const [isError, setIsError] = useState(false);
-    const [loading, setLoading] = useState(false);
+const RecipeCreator = () => {
     const [listState, dispatchListState] = useReducer(
         manageList,
         initListState
     );
+    const setRecipeState = SetRecipeState();
+    const navigate = useNavigate();
 
     const handleCourseChange = (event) => {
         dispatchListState({
@@ -73,75 +72,15 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
         });
     };
 
-    const mapParams = {
-        course: 'course_type',
-        dietType: 'diet_type',
-        cuisine: 'cuisine',
-        maxReadyTime: 'max_ready_time',
-        description: 'description',
-    };
-
-    const convertParamToUrl = (param, value) => {
-        if (param === 'description' || param === 'maxReadyTime') return value;
-        if (param === 'course') return courseTypes[value];
-        if (param === 'dietType') return dietTypes[value];
-        if (param === 'cuisine') return cuisineTypes[value];
-    };
-
     const handleFindReceip = (event) => {
         event.preventDefault();
-        setLoading(true);
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        let url = `${appConfig.BACKEND_URL}/recipe/option?page=1&page_size=12`;
-        for (let param in listState) {
-            if (listState[param]) {
-                const valueToUrl = convertParamToUrl(param, listState[param]);
-                url += `&${mapParams[param]}=${valueToUrl}`;
-            }
-        }
-        fetch(url, options)
-            .then((res) => res.json())
-            .then((res) => {
-                setRecipes(res);
-                setOpenForm(false);
-                setLoading(false);
-            })
-            .catch(() => {
-                setIsError(true);
-                setLoading(false);
-            });
+        setRecipeState(listState);
+        navigate(`/choose-recipe`);
     };
 
     const handleLuckyShot = (event) => {
         event.preventDefault();
-        setLoading(true);
-
-        const options = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        let url = `${appConfig.BACKEND_URL}/recipe/option/random`;
-        fetch(url, options)
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res);
-                setRecipes(res);
-                setOpenForm(false);
-                setLoading(false);
-            })
-            .catch(() => {
-                setIsError(true);
-                setLoading(false);
-            });
+        navigate(`/choose-recipe`);
     };
 
     return (
@@ -154,13 +93,9 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
                     alignItems: 'center',
                 }}
             >
-                {loading ? (
-                    <CircularProgress />
-                ) : (
-                    <Avatar sx={{ m: 1, bgcolor: blue[600] }}>
-                        <FoodBankIcon />
-                    </Avatar>
-                )}
+                <Avatar sx={{ m: 1, bgcolor: blue[600] }}>
+                    <FoodBankIcon />
+                </Avatar>
                 <Typography component="h1" variant="h5">
                     Create your list
                 </Typography>
@@ -255,22 +190,11 @@ const RecipeCreator = ({ setOpenForm, setRecipes }) => {
                         fullWidth
                         variant="contained"
                         onClick={handleLuckyShot}
+                        disabled
                     >
                         Lucky shot
                     </Button>
                 </Box>
-                {isError && (
-                    <Box position="absolute">
-                        <Alert
-                            severity="error"
-                            onClose={() => {
-                                setIsError(false);
-                            }}
-                        >
-                            Something went wrong - <strong>try again</strong>
-                        </Alert>
-                    </Box>
-                )}
             </Box>
         </Container>
     );

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
 
-const Recipe = () => {
+const RecipePage = () => {
     const { id } = useParams();
 
     return (
@@ -16,4 +16,4 @@ const Recipe = () => {
     );
 };
 
-export default Recipe;
+export default RecipePage;

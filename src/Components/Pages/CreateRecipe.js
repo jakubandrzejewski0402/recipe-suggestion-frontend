@@ -1,16 +1,16 @@
 import { Box } from '@mui/material';
-import RecipeList from '../RecipeList/RecipeList';
+import RecipeCreator from '../RecipeCreator/RecipeCreator';
 
-const Welcome = () => {
+const CreateRecipe = () => {
     return (
         <Box
             style={{
                 margin: '0 auto',
             }}
         >
-            <RecipeList />
+            <RecipeCreator />
         </Box>
     );
 };
 
-export default Welcome;
+export default CreateRecipe;

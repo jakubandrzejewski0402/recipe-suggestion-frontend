@@ -80,7 +80,7 @@ const RecipeDetails = ({ recipeId }) => {
             {loading ? (
                 <CircularProgress />
             ) : (
-                <Card style={{ width: 600, height: 700 }}>
+                <Card>
                     <CardActionArea>
                         <CardMedia
                             component="img"

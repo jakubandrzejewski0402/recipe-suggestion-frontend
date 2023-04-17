@@ -121,6 +121,19 @@ const RecipeChoose = ({ type, page }) => {
                 marginTop: 8,
             }}
         >
+            <Typography
+                sx={{
+                    display: 'flex',
+                    textAlign: 'center',
+                    justifyContent: 'center',
+                    color: blue[500],
+                    marginTop: 0,
+                }}
+                variant="h4"
+                gutterBottom
+            >
+                Choose recipe
+            </Typography>
             <Grid
                 container
                 sx={{

@@ -14,13 +14,15 @@ const NavBar = () => {
                     variant="h6"
                     noWrap
                     component="a"
-                    href="/"
+                    href="/main"
                     sx={{
                         fontFamily: 'monospace',
                         fontWeight: 700,
                         letterSpacing: '.3rem',
                         color: 'inherit',
                         textDecoration: 'none',
+                        justifyContent: 'center',
+                        marginRight: '1rem',
                     }}
                 >
                     LISTER

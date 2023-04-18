@@ -97,7 +97,7 @@ const RecipeCreator = () => {
                     <FoodBankIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Create your list
+                    Create your recipe
                 </Typography>
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                     <FormControl fullWidth margin="normal">
@@ -183,7 +183,7 @@ const RecipeCreator = () => {
                         sx={{ mt: 3, mb: 2 }}
                         onClick={handleFindReceip}
                     >
-                        Find receip
+                        Find recipe
                     </Button>
                     <Button
                         type="submit"

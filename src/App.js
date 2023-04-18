@@ -21,6 +21,7 @@ const App = () => {
                 >
                     <NavBar />
                     <Routes>
+                        <Route exact path="/main" element={<MainPage />} />
                         <Route exact path="/" element={<MainPage />} />
                         <Route
                             exact

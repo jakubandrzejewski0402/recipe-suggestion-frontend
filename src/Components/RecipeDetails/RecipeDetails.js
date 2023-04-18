@@ -16,6 +16,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import parse from 'html-react-parser';
 import { saveAs } from 'file-saver';
 
 const RecipeDetails = ({ recipeId }) => {
@@ -24,6 +25,7 @@ const RecipeDetails = ({ recipeId }) => {
     const [saveDialogOpen, setSaveDialogOpen] = useState(false);
     const [username, setUsername] = useState('');
     const [recipeName, setRecipeName] = useState('');
+    const [imageDisplay, setImageDisplay] = useState(true);
 
     useEffect(() => {
         const options = {
@@ -78,41 +80,67 @@ const RecipeDetails = ({ recipeId }) => {
     return (
         <Box sx={{ marginTop: 8, display: 'flex' }}>
             {loading ? (
-                <CircularProgress />
+                <Box
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}
+                >
+                    <CircularProgress />
+                </Box>
             ) : (
-                <Card>
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            image={details?.image}
-                            title={details?.title}
-                        />
-                        <CardContent>
-                            <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="h2"
-                                textAlign="center"
-                            >
-                                {details?.title}
-                            </Typography>
-                            <Typography
-                                variant="h6"
-                                color="textSecondary"
-                                textAlign="center"
-                            >
-                                Servings: {details?.servings}
-                            </Typography>
-                            <Typography
-                                variant="h6"
-                                color="textSecondary"
-                                textAlign="center"
-                            >
-                                Preparation time: {details?.preparation_time}{' '}
-                                min
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
+                <Card
+                    onClick={() => setImageDisplay(!imageDisplay)}
+                    sx={{ maxWidth: 550 }}
+                >
+                    {imageDisplay ? (
+                        <CardActionArea sx={{ minHeight: 500 }}>
+                            <CardMedia
+                                component="img"
+                                image={details?.image}
+                                title={details?.title}
+                            />
+                            <CardContent>
+                                <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="h2"
+                                    textAlign="center"
+                                >
+                                    {details?.title}
+                                </Typography>
+                                <Typography
+                                    variant="h6"
+                                    color="textSecondary"
+                                    textAlign="center"
+                                >
+                                    Servings: {details?.servings}
+                                </Typography>
+                                <Typography
+                                    variant="h6"
+                                    color="textSecondary"
+                                    textAlign="center"
+                                >
+                                    Preparation time:
+                                    {details?.preparation_time} min
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    ) : (
+                        <CardActionArea sx={{ minHeight: 500 }}>
+                            <CardContent>
+                                <Typography
+                                    variant="h6"
+                                    color="textSecondary"
+                                    textAlign="center"
+                                >
+                                    {parse(details?.instructions)}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    )}
                     <Box
                         style={{
                             display: 'flex',

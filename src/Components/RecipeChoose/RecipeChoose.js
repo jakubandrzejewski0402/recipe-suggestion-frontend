@@ -187,18 +187,52 @@ const RecipeChoose = ({ type, page }) => {
             </Alert>
         </Box>
     ) : (
-        <Typography
-            style={{
-                color: blue[600],
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-            }}
-            variant="h4"
-        >
-            You're out of luck today, nothing found...
-        </Typography>
+        <Box>
+            {page > 1 ? (
+                <Typography
+                    style={{
+                        color: blue[600],
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}
+                    variant="h4"
+                >
+                    Unfortunately, nothing found...
+                </Typography>
+            ) : (
+                <Typography
+                    style={{
+                        color: blue[600],
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}
+                    variant="h4"
+                >
+                    You're out of luck today, nothing found...
+                </Typography>
+            )}
+            <Pagination
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'fixed',
+                    bottom: 25,
+                    left: 0,
+                    width: '100%',
+                }}
+                count={10}
+                page={page}
+                color="primary"
+                onChange={(_, page) => {
+                    navigate(`/choose-recipe?page=${page}&type=${type}`);
+                }}
+            />
+        </Box>
     );
 };
 

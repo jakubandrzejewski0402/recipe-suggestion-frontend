@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { appConfig } from '../../config';
+import { blue } from '@mui/material/colors';
 import {
     CircularProgress,
     Box,
-    Button,
     CardActions,
-    CardContent,
+    Button,
     Typography,
     Card,
+    Pagination,
+    CardHeader,
+    Avatar,
+    CardMedia,
+    Grid,
 } from '@mui/material';
 
-const RecipeList = () => {
+const RecipeList = ({ page }) => {
     const [recipes, setRecipes] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -35,17 +40,42 @@ const RecipeList = () => {
             });
     }, []);
 
-    const handleClick = (id) => {
-        navigate(`/recipe/${id}`);
+    const RecipeCard = ({ id, name, image_url, creator_username }) => {
+        return (
+            <Card sx={{ width: 345 }}>
+                <CardHeader
+                    avatar={
+                        <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
+                            {creator_username[0]}
+                        </Avatar>
+                    }
+                    title={name}
+                    subheader={creator_username}
+                />
+                <CardMedia
+                    component="img"
+                    height="194"
+                    image={image_url}
+                    alt="Paella dish"
+                />
+                <CardActions disableSpacing>
+                    <Button
+                        sx={{ marginLeft: 'auto' }}
+                        onClick={() => {
+                            navigate(`/recipe/${id}`);
+                        }}
+                    >
+                        DETAILS
+                    </Button>
+                </CardActions>
+            </Card>
+        );
     };
 
     return (
         <Box
             sx={{
                 marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                width: '400px',
             }}
         >
             {loading ? (
@@ -60,41 +90,59 @@ const RecipeList = () => {
                     <CircularProgress />
                 </Box>
             ) : (
-                recipes?.map((recipe) => {
-                    return (
-                        <Box style={{ marginBottom: 10 }}>
-                            <Card
-                                variant="outlined"
-                                style={{ width: '100%', height: 150 }}
-                            >
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        {recipe.name}
-                                    </Typography>
-                                    <Typography
-                                        sx={{ mb: 1.5 }}
-                                        color="text.secondary"
-                                    >
-                                        {recipe.creator_username}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: 'right',
-                                    }}
-                                >
-                                    <Button
-                                        size="small"
-                                        onClick={() => handleClick(recipe.id)}
-                                    >
-                                        Details
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        </Box>
-                    );
-                })
+                <Box>
+                    <Typography
+                        sx={{
+                            display: 'flex',
+                            textAlign: 'center',
+                            justifyContent: 'center',
+                            color: blue[500],
+                            marginTop: 0,
+                        }}
+                        variant="h4"
+                        gutterBottom
+                    >
+                        List of latest recipes...
+                    </Typography>
+                    <Grid
+                        container
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        spacing={{ xs: 2, md: 8 }}
+                    >
+                        {recipes?.map(
+                            ({ id, name, creator_username, image_url }) => {
+                                return (
+                                    <Grid item key={id}>
+                                        <RecipeCard
+                                            id={id}
+                                            name={name}
+                                            image_url={image_url}
+                                            creator_username={creator_username}
+                                        />
+                                    </Grid>
+                                );
+                            }
+                        )}
+                    </Grid>
+                    <Pagination
+                        sx={{
+                            marginTop: 4,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        count={10}
+                        page={page}
+                        color="primary"
+                        onChange={(_, page) => {
+                            navigate(`/main?page=${page}`);
+                        }}
+                    />
+                </Box>
             )}
         </Box>
     );

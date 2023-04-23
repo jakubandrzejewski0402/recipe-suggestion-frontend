@@ -18,6 +18,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CachedIcon from '@mui/icons-material/Cached';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 import parse from 'html-react-parser';
 import { saveAs } from 'file-saver';
 
@@ -28,6 +29,7 @@ const RecipeDetails = ({ recipeId }) => {
     const [username, setUsername] = useState('');
     const [recipeName, setRecipeName] = useState('');
     const [imageDisplay, setImageDisplay] = useState(true);
+    const [saveConfirmation, setSaveConfirmation] = useState(false);
 
     useEffect(() => {
         const options = {
@@ -128,6 +130,15 @@ const RecipeDetails = ({ recipeId }) => {
                                     Preparation time:{' '}
                                     {details?.preparation_time} min
                                 </Typography>
+                                {saveConfirmation && (
+                                    <Alert
+                                        onClose={() => {
+                                            setSaveConfirmation(false);
+                                        }}
+                                    >
+                                        Saved succefully!
+                                    </Alert>
+                                )}
                                 <IconButton
                                     sx={{
                                         display: 'flex',
@@ -156,6 +167,15 @@ const RecipeDetails = ({ recipeId }) => {
                                 >
                                     {parse(details?.instructions)}
                                 </Typography>
+                                {saveConfirmation && (
+                                    <Alert
+                                        onClose={() => {
+                                            setSaveConfirmation(false);
+                                        }}
+                                    >
+                                        Saved succefully!
+                                    </Alert>
+                                )}
                                 <IconButton
                                     sx={{
                                         display: 'flex',
@@ -242,6 +262,7 @@ const RecipeDetails = ({ recipeId }) => {
                     <Button
                         onClick={() => {
                             setSaveDialogOpen(false);
+                            setSaveConfirmation(true);
                             save();
                         }}
                     >

@@ -9,12 +9,14 @@ import {
     Typography,
     Button,
     Box,
+    IconButton,
 } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CachedIcon from '@mui/icons-material/Cached';
 import TextField from '@mui/material/TextField';
 import parse from 'html-react-parser';
 import { saveAs } from 'file-saver';
@@ -91,12 +93,12 @@ const RecipeDetails = ({ recipeId }) => {
                     <CircularProgress />
                 </Box>
             ) : (
-                <Card
-                    onClick={() => setImageDisplay(!imageDisplay)}
-                    sx={{ maxWidth: 550 }}
-                >
+                <Card sx={{ maxWidth: 550 }}>
                     {imageDisplay ? (
-                        <CardActionArea sx={{ minHeight: 500 }}>
+                        <CardActionArea
+                            disableTouchRipple
+                            sx={{ minHeight: 450 }}
+                        >
                             <CardMedia
                                 component="img"
                                 image={details?.image}
@@ -123,13 +125,29 @@ const RecipeDetails = ({ recipeId }) => {
                                     color="textSecondary"
                                     textAlign="center"
                                 >
-                                    Preparation time:
+                                    Preparation time:{' '}
                                     {details?.preparation_time} min
                                 </Typography>
+                                <IconButton
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        margin: '0 auto',
+                                    }}
+                                    onClick={() =>
+                                        setImageDisplay(!imageDisplay)
+                                    }
+                                >
+                                    <CachedIcon />
+                                </IconButton>
                             </CardContent>
                         </CardActionArea>
                     ) : (
-                        <CardActionArea sx={{ minHeight: 500 }}>
+                        <CardActionArea
+                            disableTouchRipple
+                            sx={{ minHeight: 450 }}
+                        >
                             <CardContent>
                                 <Typography
                                     variant="h6"
@@ -138,16 +156,30 @@ const RecipeDetails = ({ recipeId }) => {
                                 >
                                     {parse(details?.instructions)}
                                 </Typography>
+                                <IconButton
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        margin: '0 auto',
+                                    }}
+                                    onClick={() =>
+                                        setImageDisplay(!imageDisplay)
+                                    }
+                                >
+                                    <CachedIcon />
+                                </IconButton>
                             </CardContent>
                         </CardActionArea>
                     )}
                     <Box
+                        sx={{ paddingTop: 0 }}
                         style={{
                             display: 'flex',
                             justifyContent: 'center',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            height: '13vh',
+                            height: '14vh',
                         }}
                     >
                         <Button

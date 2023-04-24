@@ -51,8 +51,8 @@ const RecipeChoose = ({ type, page }) => {
 
         let url =
             type === 'normal'
-                ? `${appConfig.BACKEND_URL}/recipe/option?page=${page}&page_size=8`
-                : `${appConfig.BACKEND_URL}/recipe/option/random?page=${page}&page_size=8`;
+                ? `${appConfig.BACKEND_URL}/recipe?page=${page}&page_size=8`
+                : `${appConfig.BACKEND_URL}/recipe/random?page=${page}&page_size=8`;
         if (type === 'normal') {
             for (let param in recipeOptions) {
                 if (recipeOptions[param]) {

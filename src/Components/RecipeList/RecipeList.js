@@ -29,7 +29,7 @@ const RecipeList = ({ page }) => {
                 'Content-Type': 'application/json',
             },
         };
-        const url = `${appConfig.BACKEND_URL}/recipe?page=1&page_size=12`;
+        const url = `${appConfig.BACKEND_URL}/saved-recipe?page=${page}&page_size=8`;
 
         setLoading(true);
         fetch(url, options)
@@ -38,7 +38,7 @@ const RecipeList = ({ page }) => {
                 setRecipes(res);
                 setLoading(false);
             });
-    }, []);
+    }, [page]);
 
     const RecipeCard = ({ id, name, image_url, creator_username }) => {
         return (

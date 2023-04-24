@@ -38,7 +38,7 @@ const RecipeDetails = ({ recipeId }) => {
                 'Content-Type': 'application/json',
             },
         };
-        const url = `${appConfig.BACKEND_URL}/recipe/option/${recipeId}`;
+        const url = `${appConfig.BACKEND_URL}/recipe/${recipeId}`;
 
         setLoading(true);
         fetch(url, options)
@@ -59,7 +59,7 @@ const RecipeDetails = ({ recipeId }) => {
                 id: recipeId,
                 name: recipeName,
                 creator_username: username,
-                image: details?.image,
+                image_url: details?.image,
             }),
         };
         const url = `${appConfig.BACKEND_URL}/recipe`;

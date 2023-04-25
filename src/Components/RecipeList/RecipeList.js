@@ -89,7 +89,7 @@ const RecipeList = ({ page }) => {
                 >
                     <CircularProgress />
                 </Box>
-            ) : (
+            ) : recipes?.length > 0 ? (
                 <Box>
                     <Typography
                         sx={{
@@ -134,6 +134,38 @@ const RecipeList = ({ page }) => {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                        }}
+                        count={10}
+                        page={page}
+                        color="primary"
+                        onChange={(_, page) => {
+                            navigate(`/main?page=${page}`);
+                        }}
+                    />
+                </Box>
+            ) : (
+                <Box>
+                    <Typography
+                        style={{
+                            color: blue[600],
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                        variant="h4"
+                    >
+                        Unfortunately, nothing found...
+                    </Typography>
+                    <Pagination
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'fixed',
+                            bottom: 25,
+                            left: 0,
+                            width: '100%',
                         }}
                         count={10}
                         page={page}

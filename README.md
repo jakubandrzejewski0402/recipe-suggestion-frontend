@@ -4,6 +4,9 @@
 
 Welcome to the Recipe Browser project! This project is a fun, interactive way to find and explore various culinary recipes. Built with a simple, user-friendly interface, it allows users to easily navigate through a vast selection of recipes from different cuisines worldwide.
 
+## Demo
+You can access the deployed version of this application here &rarr; [lister.vercel.app](https://lister-frontend-voyb.vercel.app/)
+
 ## Features
 
 - Search: Quickly find recipes by name or ingredients.

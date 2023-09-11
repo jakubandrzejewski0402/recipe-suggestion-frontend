@@ -37,7 +37,7 @@ This project is built using React.js and Material UI.
 
    `npm start`
 
-8. Open your web browser and go to http://localhost:3000 to access the application.
+8. Open your web browser and go to [localhost:3000](http://localhost:3000) to access the application.
 
 Now you're ready to run your Recipe Browser locally!
 
